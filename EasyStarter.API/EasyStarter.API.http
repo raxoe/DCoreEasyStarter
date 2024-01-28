@@ -1,0 +1,6 @@
+@EasyStarter.API_HostAddress = http://localhost:5296
+
+GET {{EasyStarter.API_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
