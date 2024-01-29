@@ -10,7 +10,7 @@ using System.Threading.Tasks;
 
 namespace EasyStarter.EntityFramework
 {
-    public static class DependencyInjections
+    public static class EFDependencyInjections
     {
         public static void ConfigureServices(IServiceCollection services, IConfiguration Configuration)
         {
@@ -27,17 +27,15 @@ namespace EasyStarter.EntityFramework
         public static void MigrateDatabase(IServiceScope scope)
         {            
             var dbContextOptions = scope.ServiceProvider.GetRequiredService<DbShoppingContext>();
-
             dbContextOptions.Database.Migrate();
-            
+
+            DbInitializer.Initialize(dbContextOptions);
         }
 
         public static void DbEnsureCreate(IServiceScope scope)
         {
             var context = scope.ServiceProvider.GetRequiredService<DbShoppingContext>();
-            context.Database.EnsureCreated();
-
-            DbInitializer.Initialize(context);
+            context.Database.EnsureCreated();            
         }
     }
 }

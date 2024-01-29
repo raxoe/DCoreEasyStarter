@@ -1,3 +1,4 @@
+using EasyStarter.DataAccess;
 using EasyStarter.EntityFramework;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -15,7 +16,10 @@ builder.Services.AddSwaggerGen();
 
 //EFCore ErrorPage middleware for to detect and diagnose errors with Entity Framework Core migrations.
 //builder.Services.AddDatabaseDeveloperPageExceptionFilter();
-DependencyInjections.ConfigureServices(builder.Services, builder.Configuration);
+EFDependencyInjections.ConfigureServices(builder.Services, builder.Configuration);
+
+//Repository Service Register
+RepoDependencyInjections.ConfigureServices(builder.Services,builder.Configuration);
 
 var app = builder.Build();
 
@@ -41,9 +45,9 @@ using (var scope = app.Services.CreateScope())
     //    context.Database.EnsureCreated();
     //    // DbInitializer.Initialize(context);
 
-    DependencyInjections.MigrateDatabase(scope);
+    EFDependencyInjections.MigrateDatabase(scope);
 
-    DependencyInjections.DbEnsureCreate(scope);
+    //EFDependencyInjections.DbEnsureCreate(scope);
 }
 
 app.Run();

@@ -20,7 +20,9 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\EasyStarter.DataAccess\EasyStarter.DataAccess.csproj" />
     <ProjectReference Include="..\EasyStarter.EntityFramework\EasyStarter.EntityFramework.csproj" />
+    <ProjectReference Include="..\EasyStarter.Model\EasyStarter.Model.csproj" />
   </ItemGroup>
 
 </Project>
