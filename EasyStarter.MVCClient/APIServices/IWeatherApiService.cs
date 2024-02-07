@@ -4,6 +4,6 @@ namespace EasyStarter.MVCClient.APIServices
 {
     public interface IWeatherApiService
     {
-        Task<ApiResponse<WeatherForecast>> GetWeatherAsync();
+        Task<ApiResponse<List<WeatherForecast>>> GetWeatherAsync();
     }
 }

@@ -11,7 +11,7 @@ namespace EasyStarter.DataAccess.Interface
     {
         void AddCategory(CategoryModel categoryModel);
         IEnumerable<CategoryModel> GetAllCategories();
-        CategoryModel GetCategories(int id);
+        CategoryModel GetCategory(int id);
         void Update(CategoryModel categoryModel);
         void Delete(int id);
     }

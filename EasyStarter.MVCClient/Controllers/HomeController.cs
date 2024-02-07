@@ -16,9 +16,9 @@ namespace EasyStarter.MVCClient.Controllers
             _weatherApiService = weatherApiService;
         }
 
-        public IActionResult Index()
+        public async Task<IActionResult> Index()
         {
-            var apiData = _weatherApiService.GetWeatherAsync();
+            var apiData =await _weatherApiService.GetWeatherAsync();
             //return Ok(new ApiResponse<ApiResponseModel> { Success = true, Data = apiData });
             return View();
         }

@@ -10,17 +10,21 @@ namespace EasyStarter.MVCClient.APIServices
         {
             _httpClient = httpClient;
         }
-        public async Task<ApiResponse<WeatherForecast>> GetWeatherAsync()
+        public async Task<ApiResponse<List<WeatherForecast>>> GetWeatherAsync()
         {
             try
             {
                 // API call logic
-                var response = await _httpClient.GetFromJsonAsync<WeatherForecast>("https://localhost:44320/WeatherForecast");
-                return new ApiResponse<WeatherForecast> { Success = true, Data = response };
+                ////var response = await _httpClient.GetFromJsonAsync<WeatherForecast>("https://localhost:44320/WeatherForecast");
+                string baseAddr = "https://localhost:44320";
+                var response = await _httpClient.GetFromJsonAsync<List<WeatherForecast>>("/WeatherForecast");
+
+                
+                return new ApiResponse<List<WeatherForecast>> { Success = true, Data = response };
             }
             catch (HttpRequestException ex)
             {
-                return new ApiResponse<WeatherForecast>
+                return new ApiResponse<List<WeatherForecast>>
                 {
                     Success = false,
                     //Error = new ApiError { ErrorCode = 400, ErrorMessage = "Bad Request", AdditionalDetails = ex.Message }
@@ -28,7 +32,7 @@ namespace EasyStarter.MVCClient.APIServices
                 };
             }
 
-            return new ApiResponse<WeatherForecast> { Success = true, Data = new WeatherForecast() { } };
+            return new ApiResponse<List<WeatherForecast>> { Success = true, Data = new List<WeatherForecast>() { } };
 
         }
     }

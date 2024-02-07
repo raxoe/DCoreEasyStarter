@@ -33,7 +33,7 @@ namespace EasyStarter.DataAccess.Implementation
             return _context.Categories.Select(x => CategoryConverter.ConvertEntityToModel(x));
         }
 
-        public CategoryModel GetCategories(int id)
+        public CategoryModel GetCategory(int id)
         {
             return CategoryConverter.ConvertEntityToModel(_context.Categories.FirstOrDefault(x => x.Id == id));
         }
