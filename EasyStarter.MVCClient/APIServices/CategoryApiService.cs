@@ -20,7 +20,7 @@ namespace EasyStarter.MVCClient.APIServices
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
 
-                var response = await _httpClient.PostAsync("/Category", httpContent);
+                var response = await _httpClient.PostAsync("Category", httpContent);
 
                 if (response.IsSuccessStatusCode)
                 {
@@ -43,7 +43,7 @@ namespace EasyStarter.MVCClient.APIServices
         {
             try
             {
-                var response = await _httpClient.DeleteFromJsonAsync<CategoryModel>("/Category");
+                var response = await _httpClient.DeleteFromJsonAsync<CategoryModel>("Category");
 
 
                 return new ApiResponse<CategoryModel> { Success = true, Data = response };
@@ -61,19 +61,19 @@ namespace EasyStarter.MVCClient.APIServices
             return new ApiResponse<CategoryModel> { Success = true, Data = new CategoryModel() { } };
         }
 
-        public async Task<ApiResponse<List<CategoryModel>>> GetCategoryAsync()
+        public async Task<ApiResponse<List<CategoryViewModel>>> GetCategoryAsync()
         {
             try
             {
                 var foo =await _httpClient.GetAsync("/Category/GetCategory");
-                var response = await _httpClient.GetFromJsonAsync<List<CategoryModel>>("/Category/GetCategory");
+                var response = await _httpClient.GetFromJsonAsync<List<CategoryViewModel>>("Category");
 
 
-                return new ApiResponse<List<CategoryModel>> { Success = true, Data = response };
+                return new ApiResponse<List<CategoryViewModel>> { Success = true, Data = response };
             }
             catch (HttpRequestException ex)
             {
-                return new ApiResponse<List<CategoryModel>>
+                return new ApiResponse<List<CategoryViewModel>>
                 {
                     Success = false,
                     //Error = new ApiError { ErrorCode = 400, ErrorMessage = "Bad Request", AdditionalDetails = ex.Message }
@@ -81,13 +81,13 @@ namespace EasyStarter.MVCClient.APIServices
                 };
             }
 
-            return new ApiResponse<List<CategoryModel>> { Success = true, Data = new List<CategoryModel>() { } };
+            return new ApiResponse<List<CategoryViewModel>> { Success = true, Data = new List<CategoryViewModel>() { } };
         }
         public async Task<ApiResponse<CategoryModel>> GetCategoryAsync(int id)
         {
             try
             {
-                var response = await _httpClient.GetFromJsonAsync<CategoryModel>("/Category");
+                var response = await _httpClient.GetFromJsonAsync<CategoryModel>("Category/"+id);
 
 
                 return new ApiResponse<CategoryModel> { Success = true, Data = response };
@@ -111,7 +111,7 @@ namespace EasyStarter.MVCClient.APIServices
                 string json = JsonConvert.SerializeObject(categoryModel);   //using Newtonsoft.Json
                 StringContent httpContent = new StringContent(json, System.Text.Encoding.UTF8, "application/json");
 
-                var response = await _httpClient.PutAsync("/Category", httpContent);
+                var response = await _httpClient.PutAsync("Category", httpContent);
 
                 if (response.IsSuccessStatusCode)
                 {

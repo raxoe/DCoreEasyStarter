@@ -59,7 +59,7 @@ builder.Services.AddHttpClient<ICategoryApiService, CategoryApiService>()
     })
     .ConfigureHttpClient((configureClient) =>
     {    
-        configureClient.BaseAddress = new Uri("https://localhost:44320/api");
+        configureClient.BaseAddress = new Uri("https://localhost:44320/api/");
         configureClient.Timeout = new TimeSpan(0, 0, 30);
     });
 

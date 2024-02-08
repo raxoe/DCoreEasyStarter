@@ -1,4 +1,4 @@
-﻿@model IEnumerable<EasyStarter.Model.Models.CategoryModel>
+﻿@model IEnumerable<EasyStarter.Model.Models.CategoryViewModel>
 
 @{
     ViewData["Title"] = "Index";
@@ -13,7 +13,7 @@
     <thead>
         <tr>            
             <th>
-                @Html.DisplayNameFor(model => model.MainCategoryId)
+                @Html.DisplayNameFor(model => model.MainCategoryTitle)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.Title)
@@ -26,15 +26,15 @@
         <tr>
             
             <td>
-                @Html.DisplayFor(modelItem => item.MainCategoryId)
+                @Html.DisplayFor(modelItem => item.MainCategoryTitle)
             </td>
             <td>
                 @Html.DisplayFor(modelItem => item.Title)
             </td>
             <td>
-                @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
+                @Html.ActionLink("Edit", "Edit", new { id=item.Id }) |
                 @Html.ActionLink("Details", "Details", new { /* id=item.PrimaryKey */ }) |
-                @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                @Html.ActionLink("Delete", "Delete", new { id=item.Id })
             </td>
         </tr>
 }

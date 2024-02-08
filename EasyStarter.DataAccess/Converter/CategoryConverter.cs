@@ -31,5 +31,14 @@ namespace EasyStarter.DataAccess.Converter
             model.Title = entity.Title;
             return model;
         }
+        public static CategoryViewModel ConvertEntityToViewModel(Category entity)
+        {
+            CategoryViewModel viewModel = new CategoryViewModel();
+            viewModel.Id = entity.Id;
+            viewModel.MainCategoryId = entity.MainCategoryId;
+            viewModel.Title = entity.Title;
+            viewModel.MainCategoryTitle = entity.MainCategory !=null ? entity.MainCategory.Title : "";
+            return viewModel;
+        }
     }
 }

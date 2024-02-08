@@ -20,10 +20,8 @@ namespace EasyStarter.MVCClient.Controllers
 
         // GET: CategoryController
         public async Task<ActionResult> Index()
-        {
-
-            var result =await _categoryApiService.GetCategoryAsync();
-            List<CategoryModel> lstModel = result.Data;
+        {            
+            List<CategoryViewModel> lstModel = _categoryApiService.GetCategoryAsync().Result.Data;
             return View(lstModel);
         }
 
@@ -36,13 +34,18 @@ namespace EasyStarter.MVCClient.Controllers
         // GET: CategoryController/Create
         public ActionResult Create()
         {
-            List<CategoryModel> categoryModels = new List<CategoryModel>();
+            //List<CategoryModel> categoryModels = new List<CategoryModel>();
 
-            categoryModels.Add(new CategoryModel() { Id = 0, Title = "---Select MainCategory" });
-            categoryModels.Add(new CategoryModel() { Id=1,Title="title1"});
-            categoryModels.Add(new CategoryModel() { Id = 2, Title = "title2" });             
+            //categoryModels.Add(new CategoryModel() { Id = -1, Title = "---Select MainCategory---" });
+            //categoryModels.Add(new CategoryModel() { Id=1,Title="title1"});
+            //categoryModels.Add(new CategoryModel() { Id = 2, Title = "title2" });
+            
+            //List<CategoryModel> lstCategory =  _categoryApiService.GetCategoryAsync().Result.Data;
+            //lstCategory=lstCategory.Prepend(new CategoryModel() { Id = -1, Title = "---Select MainCategory---" }).ToList();
 
-            ViewBag.MainCategory =new SelectList(categoryModels.ToDictionary(us => us.Id, us => us.Title), "Key", "Value");
+            //ViewBag.MainCategory =new SelectList(lstCategory.ToDictionary(us => us.Id, us => us.Title), "Key", "Value");
+
+            ViewBag.MainCategory = BindCategoryDropdown(0);
 
             return View();
         }
@@ -54,6 +57,7 @@ namespace EasyStarter.MVCClient.Controllers
         {
             try
             {
+                var result = _categoryApiService.AddCategoryAsync(model).Result.Data;
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -64,17 +68,31 @@ namespace EasyStarter.MVCClient.Controllers
 
         // GET: CategoryController/Edit/5
         public ActionResult Edit(int id)
-        {
-            return View();
+        {            
+            CategoryModel category = _categoryApiService.GetCategoryAsync(id).Result.Data;
+
+            if (category.MainCategoryId != null)
+            {
+                ViewBag.MainCategory = BindCategoryDropdown((int)category.MainCategoryId);
+            }
+            else
+            {
+                ViewBag.MainCategory = BindCategoryDropdown(0);
+            }           
+
+            return View(category);
         }
 
         // POST: CategoryController/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
-        public ActionResult Edit(int id, IFormCollection collection)
+        //public ActionResult Edit(int id, IFormCollection collection)
+        public ActionResult Edit(CategoryModel categoryModel)
         {
             try
             {
+                CategoryModel category = _categoryApiService.UpdateCategoryAsync(categoryModel).Result.Data;
+
                 return RedirectToAction(nameof(Index));
             }
             catch
@@ -103,5 +121,22 @@ namespace EasyStarter.MVCClient.Controllers
                 return View();
             }
         }
+
+        #region private method
+        private SelectList BindCategoryDropdown(int selectedID)
+        {
+            List<CategoryViewModel> lstCategory = _categoryApiService.GetCategoryAsync().Result.Data;
+            lstCategory = lstCategory.Prepend(new CategoryViewModel() { Id = -1, Title = "---Select MainCategory---" }).ToList();
+
+            if (selectedID != 0) {
+                return new SelectList(lstCategory.ToDictionary(us => us.Id, us => us.Title), "Key", "Value", selectedID);
+            }
+            else
+            {
+                return new SelectList(lstCategory.ToDictionary(us => us.Id, us => us.Title), "Key", "Value");
+            }
+            return null;
+        }
+        #endregion
     }
 }

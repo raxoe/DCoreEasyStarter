@@ -20,8 +20,8 @@ namespace EasyStarter.API.Controllers
             _categoryRepository = categoryRepository;
         }
         // GET: api/<ValuesController>/GetCategory
-        [HttpGet(Name="GetCategory")]
-        public IEnumerable<CategoryModel> GetCategory()
+        [HttpGet]
+        public IEnumerable<CategoryViewModel> GetCategory()
         {
             return _categoryRepository.GetAllCategories();
         }
@@ -42,7 +42,8 @@ namespace EasyStarter.API.Controllers
         }
 
         // PUT api/<ValuesController>/5
-        [HttpPut("{id}")]
+        //[HttpPut("{id}")]
+        [HttpPut()]
         public IActionResult UpdateCategory(CategoryModel categoryModel)
         {
             _categoryRepository.Update(categoryModel);

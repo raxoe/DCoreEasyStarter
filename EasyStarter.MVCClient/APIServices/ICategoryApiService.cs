@@ -5,7 +5,7 @@ namespace EasyStarter.MVCClient.APIServices
 {
     public interface ICategoryApiService
     {
-        Task<ApiResponse<List<CategoryModel>>> GetCategoryAsync();
+        Task<ApiResponse<List<CategoryViewModel>>> GetCategoryAsync();
         Task<ApiResponse<CategoryModel>> GetCategoryAsync(int id);
         Task<ApiResponse<HttpContent>> AddCategoryAsync(CategoryModel categoryModel);
         Task<ApiResponse<CategoryModel>> UpdateCategoryAsync(CategoryModel categoryModel);

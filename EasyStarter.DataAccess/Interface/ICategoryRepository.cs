@@ -10,7 +10,8 @@ namespace EasyStarter.DataAccess.Interface
     public interface ICategoryRepository
     {
         void AddCategory(CategoryModel categoryModel);
-        IEnumerable<CategoryModel> GetAllCategories();
+        //IEnumerable<CategoryModel> GetAllCategories();
+        IEnumerable<CategoryViewModel> GetAllCategories();
         CategoryModel GetCategory(int id);
         void Update(CategoryModel categoryModel);
         void Delete(int id);

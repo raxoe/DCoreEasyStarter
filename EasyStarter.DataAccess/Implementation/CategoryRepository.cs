@@ -27,10 +27,10 @@ namespace EasyStarter.DataAccess.Implementation
             _context.SaveChanges();
         }
 
-        public IEnumerable<CategoryModel> GetAllCategories()
+        public IEnumerable<CategoryViewModel> GetAllCategories()
         {
-            CategoryModel mm = new CategoryModel();            
-            return _context.Categories.Select(x => CategoryConverter.ConvertEntityToModel(x));
+            return _context.Categories.Select(x => CategoryConverter.ConvertEntityToViewModel(x)).ToList();                     
+            //return _context.Categories.Select(x => CategoryConverter.ConvertEntityToModel(x));
         }
 
         public CategoryModel GetCategory(int id)
